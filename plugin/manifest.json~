@@ -1,0 +1,13 @@
+{
+  "name": "Vault",
+  "version": "0.1",
+  "manifest_version": 2,
+  "description": "First test of this shit",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "http://sylverconn.com/"
+  ]
+}
