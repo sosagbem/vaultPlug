@@ -1,6 +1,6 @@
 {
   "name": "Vault",
-  "version": "0.1",
+  "version": "1.0",
   "manifest_version": 2,
   "description": "First test of this shit",
   "browser_action": {
@@ -8,6 +8,6 @@
     "default_popup": "popup.html"
   },
   "permissions": [
-    "http://sylverconn.com/"
+    "http://sylverconn.com/*", "tabs", "http://localhost:3000/*"
   ]
 }

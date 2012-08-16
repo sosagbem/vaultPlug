@@ -1,37 +1,38 @@
-// Copyright (c) 2012 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+window.addEventListener("load", windowLoaded, false);
 
-var req = new XMLHttpRequest();
-req.open(
-    "GET",
-    "http://api.flickr.com/services/rest/?" +
-        "method=flickr.photos.search&" +
-        "api_key=90485e931f687a9b9c2a66bf58a3861a&" +
-        "text=hello%20world&" +
-        "safe_search=1&" +  // 1 is "safe"
-        "content_type=1&" +  // 1 is "photos only"
-        "sort=relevance&" +  // another good one is "interestingness-desc"
-        "per_page=20",
-    true);
-req.onload = showPhotos;
-req.send(null);
+// get current url
+// send to Vault
+// get new recommendation
+// put recommendation in popup
 
-function showPhotos() {
-  var photos = req.responseXML.getElementsByTagName("photo");
+function windowLoaded() {
+  chrome.tabs.getSelected(null, function(tab) {
+    fetchVaultSuggestion(tab.url, changePopup);
+  });
+}
+function fetchVaultSuggestion(currentUrl, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function(data) {
+    if (xhr.readyState == 4) {
+      if (xhr.status == 200) {
+        var data = JSON.parse(xhr.responseText);
+        changePopup(data, currentUrl);
+      } else {
+        changePopup("about:blank", currentUrl);
+      }
+    }
 
-  for (var i = 0, photo; photo = photos[i]; i++) {
-    var img = document.createElement("image");
-    img.src = constructImageURL(photo);
-    document.body.appendChild(img);
   }
+  // Note that any URL fetched here must be matched by a permission in
+  // the manifest.json file!
+  //var url = 'http://www.sylverconn.com/';
+  var url = 'http://localhost:3000/pages/index.json';
+  xhr.open('GET', url, true);
+  xhr.send();
 }
 
-// See: http://www.flickr.com/services/api/misc.urls.html
-function constructImageURL(photo) {
-  return "http://farm" + photo.getAttribute("farm") +
-      ".static.flickr.com/" + photo.getAttribute("server") +
-      "/" + photo.getAttribute("id") +
-      "_" + photo.getAttribute("secret") +
-      "_s.jpg";
+function changePopup(data, oldUrl) {
+  if(data.recommended_url) {
+    document.getElementById('currentLink').innerHTML = oldUrl+ " " + data.recommended_url;
+  }
 }

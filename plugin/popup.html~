@@ -4,23 +4,17 @@
     <title>Vault Test Extension</title>
     <style>
       body {
-        min-width:357px;
-        min-height:500px;
+        min-width:50px;
+        min-height:50px;
         overflow-x:hidden;
       }
 
-      img {
-        margin:5px;
-        border:2px solid black;
-        vertical-align:middle;
-        width:75px;
-        height:75px;
-      }
     </style>
 
     <!-- JavaScript and HTML must be in separate files for security. -->
     <script src="popup.js"></script>
   </head>
-  <body>
-  </body>
+<body>
+<p id="currentLink">Loading ...</p>
+</body>
 </html>

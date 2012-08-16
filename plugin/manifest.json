@@ -8,6 +8,6 @@
     "default_popup": "popup.html"
   },
   "permissions": [
-    "http://sylverconn.com/"
+    "http://sylverconn.com/*", "tabs", "http://localhost:3000/*"
   ]
 }
