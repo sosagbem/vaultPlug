@@ -6,7 +6,6 @@ gem 'rails', '3.2.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
-gem 'devise'
 
 
 # Gems used only for assets and not required
@@ -22,12 +21,14 @@ group :assets do
 end
 
 group :development do
-  gem 'execjs'
   gem 'therubyracer'
+  gem 'execjs'
 end
 
 gem 'jquery-rails'
+gem 'devise'
 gem 'rabl'
+gem 'omniauth-twitter'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

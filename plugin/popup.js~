@@ -1,15 +1,11 @@
 window.addEventListener("load", windowLoaded, false);
 
-// get current url
-// send to Vault
-// get new recommendation
-// put recommendation in popup
-
 function windowLoaded() {
   chrome.tabs.getSelected(null, function(tab) {
     fetchVaultSuggestion(tab.url, changePopup);
   });
 }
+
 function fetchVaultSuggestion(currentUrl, callback) {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function(data) {

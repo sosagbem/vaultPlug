@@ -1,4 +1,6 @@
 Vault::Application.routes.draw do
+  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
+
   get "pages/index"
 
   get "pages/help"
@@ -6,7 +8,6 @@ Vault::Application.routes.draw do
   get "pages/about"
 
   root :to => "pages#index"
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
