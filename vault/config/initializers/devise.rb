@@ -82,7 +82,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = "afab551dd343edb2a692e4ee91ddc0e77ccb7b92dd869f7d4d892b81969b7c81efa7c11f3c28a9e2edebce038a00a08231312ab7d7243c9b07d03ca52d6cd18e"
+  # config.pepper = "59a0706a0f9b2d4d947369e2eb5bf0c757811fb9f96172273e398a989d2cfe955a8f64b7ac4e71ebbba8b55c26158dd12766ba82fb3df6f431a580411b655bea"
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -204,7 +204,6 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
-  config.omniauth :twitter, "nSNMeOsWte39MrYANvtNw", "vKYWIosvqQ0KpAEMQJQIgZidHVSFUkXEt0zCcgU"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

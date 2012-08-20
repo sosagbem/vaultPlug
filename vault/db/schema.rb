@@ -11,7 +11,61 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120816183806) do
+ActiveRecord::Schema.define(:version => 20120820074016) do
+
+  create_table "recommendable_dislikes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "dislikeable_id"
+    t.string   "dislikeable_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "recommendable_dislikes", ["dislikeable_id"], :name => "index_recommendable_dislikes_on_dislikeable_id"
+  add_index "recommendable_dislikes", ["dislikeable_type"], :name => "index_recommendable_dislikes_on_dislikeable_type"
+  add_index "recommendable_dislikes", ["user_id", "dislikeable_id", "dislikeable_type"], :name => "user_dislike_constraint", :unique => true
+
+  create_table "recommendable_ignores", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "ignorable_id"
+    t.string   "ignorable_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "recommendable_ignores", ["ignorable_id"], :name => "index_recommendable_ignores_on_ignorable_id"
+  add_index "recommendable_ignores", ["ignorable_type"], :name => "index_recommendable_ignores_on_ignorable_type"
+  add_index "recommendable_ignores", ["user_id", "ignorable_id", "ignorable_type"], :name => "user_ignore_constraint", :unique => true
+
+  create_table "recommendable_likes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "likeable_id"
+    t.string   "likeable_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "recommendable_likes", ["likeable_id"], :name => "index_recommendable_likes_on_likeable_id"
+  add_index "recommendable_likes", ["likeable_type"], :name => "index_recommendable_likes_on_likeable_type"
+  add_index "recommendable_likes", ["user_id", "likeable_id", "likeable_type"], :name => "user_like_constraint", :unique => true
+
+  create_table "recommendable_stashes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "stashable_id"
+    t.string   "stashable_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "recommendable_stashes", ["stashable_id"], :name => "index_recommendable_stashes_on_stashable_id"
+  add_index "recommendable_stashes", ["stashable_type"], :name => "index_recommendable_stashes_on_stashable_type"
+  add_index "recommendable_stashes", ["user_id", "stashable_id", "stashable_type"], :name => "user_stashed_constraint", :unique => true
+
+  create_table "sites", :force => true do |t|
+    t.string   "url"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -26,9 +80,6 @@ ActiveRecord::Schema.define(:version => 20120816183806) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.string   "uid"
-    t.string   "token"
-    t.string   "secret"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

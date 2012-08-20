@@ -1,11 +1,14 @@
 Vault::Application.routes.draw do
-  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
+  post "sites/like"
+  post "sites/dislike"
+  post "sites/mark_as_visited"
+  get "sites/get_recommendation"
 
   get "pages/index"
-
+  get "pages/about"
   get "pages/help"
 
-  get "pages/about"
+  devise_for :users
 
   root :to => "pages#index"
 

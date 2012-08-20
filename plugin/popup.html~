@@ -12,12 +12,20 @@
     </style>
 
     <!-- JavaScript and HTML must be in separate files for security. -->
-    <script src="popup.js"></script>
+
+    <script type="text/javascript">
+function myFunction()
+{
+document.getElementById('currentLink').innerHTML = "working";
+}
+</script>
 
   </head>
 <body>
 <p id="currentLink">Loading ...</p>
+
+<button type="button" onClick="myFunction()">hi</button>
+
 </body>
-<button>Warmer</button>
-<button>Colder</button>
+
 </html>
