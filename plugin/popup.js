@@ -1,4 +1,4 @@
-
+/*
       function windowLoaded() {
         //document.getElementById('currentLink').innerHTML = "please";
         document.getElementById("upvote").object.addEventListener("click", play, false);
@@ -44,10 +44,10 @@ function simpleGet(currentUrl, callback) {
 }
 
 function likeCurrentPage() {
-  /*var apiUrl = 'http://localhost:3000/sites/like';
+  var apiUrl = 'http://localhost:3000/sites/like';
   chrome.tabs.getSelected(null, function(tab) {
     simplePost(apiUrl, tab.url);
-  });*/
+  });
   document.getElementById('currentLink').innerHTML = "liked"
 }
 
@@ -75,4 +75,4 @@ function changePopup(data, oldUrl) {
   if(data.recommended_url) {
     document.getElementById('currentLink').innerHTML = oldUrl+ " " + data.recommended_url;
   }
-}
+}*/

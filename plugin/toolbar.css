@@ -1,0 +1,22 @@
+#vault {
+  visibility: visible;
+  position: fixed;
+  display: block;
+
+  height: 30px;
+  width: 100%;
+  border: none;
+  border-image: initial;
+
+  bottom: 0px;
+  left: 0px;
+  margin: 0px;
+  padding: 0px;
+  opacity: 1;
+  z-index: 10000100;
+  background-color: #00B800;
+}
+
+#vaultbutton {
+  width: 200px;
+}

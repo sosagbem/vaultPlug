@@ -2,12 +2,11 @@
       function windowLoaded() {
         //document.getElementById('currentLink').innerHTML = "please";
         document.getElementById("upvote").object.addEventListener("click", play, false);
-         document.getElementById('currentLink').innerHTML = "pddlease";
+         //document.getElementById('currentLink').innerHTML = "pddlease";
       }
-      function
       function play() {
-        document.getElementById('currentLink').innerHTML = "please";
-      }*/
+        document.getElementById('currentLink').innerHTML = "workingbitch";
+      }
 
 function play() {
   document.getElementById('currentLink').innerHTML = "working";
@@ -15,7 +14,7 @@ function play() {
 //var likeButton = window.getElementById('Warmer');
 //var dislikeButton = window.getElementById('Colder');
 //likeButton.addEventListener("click", simple)
-//window.addEventListener("load", windowLoaded, false);
+window.addEventListener("load", windowLoaded, false);
 
 function fetchVaultSuggestion() {
   chrome.tabs.getSelected(null, function(tab) {
@@ -45,10 +44,10 @@ function simpleGet(currentUrl, callback) {
 }
 
 function likeCurrentPage() {
-  /*var apiUrl = 'http://localhost:3000/sites/like';
+  var apiUrl = 'http://localhost:3000/sites/like';
   chrome.tabs.getSelected(null, function(tab) {
     simplePost(apiUrl, tab.url);
-  });*/
+  });
   document.getElementById('currentLink').innerHTML = "liked"
 }
 
@@ -76,4 +75,4 @@ function changePopup(data, oldUrl) {
   if(data.recommended_url) {
     document.getElementById('currentLink').innerHTML = oldUrl+ " " + data.recommended_url;
   }
-}
+}*/
