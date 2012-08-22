@@ -1,7 +1,7 @@
 Vault::Application.routes.draw do
-  post "sites/like"
-  post "sites/dislike"
-  post "sites/mark_as_visited"
+  get "sites/like"
+  get "sites/dislike"
+  get "sites/mark_as_visited"
   get "sites/get_recommendation"
 
   get "pages/index"

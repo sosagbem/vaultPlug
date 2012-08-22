@@ -6,7 +6,7 @@ onload = function(){
 
   var divm = document.createElement("span");
   divm.setAttribute('id', 'vaultmessage');
-  divm.innerHTML = "Loading";
+  divm.innerText = "Loading";
 
   var warmButton = document.createElement("button");
   warmButton.setAttribute('id', 'vaultbutton');
@@ -39,7 +39,7 @@ function dislikeCurrentPage() {
 
 function simplePost(apiUrl) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", apiUrl, true);
+  xhr.open("GET", apiUrl, true);
   xhr.send();
 }
 
@@ -49,7 +49,7 @@ function simpleGet(apiUrl) {
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
       // JSON.parse does not evaluate the attacker's scripts.
-      document.getElementById('vaultmessage').innerHTML = xhr.responseText;
+      document.getElementById('vaultmessage').innerText = xhr.responseText;
     }
   }
   xhr.send();
