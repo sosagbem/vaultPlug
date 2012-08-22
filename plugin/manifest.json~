@@ -5,7 +5,7 @@
   "description": "First test of this shit",
   "content_scripts": [
     {
-      "matches": ["http://*/*"],
+      "matches": ["http://*/*", "https://*/*"],
       "js": ["toolbar.js"],
       "css": ["toolbar.css"]
     }
