@@ -1,4 +1,11 @@
 Vault::Application.routes.draw do
+
+  resources :services do
+    collection do
+      get "all_omniauths"
+    end
+  end
+
   get "sites/like"
   get "sites/dislike"
   get "sites/mark_as_visited"
@@ -8,7 +15,7 @@ Vault::Application.routes.draw do
   get "pages/about"
   get "pages/help"
 
-  devise_for :users
+  devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}, controllers: {omniauth_callbacks: "services"}
 
   root :to => "pages#index"
 

@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120820074016) do
+ActiveRecord::Schema.define(:version => 20120827165035) do
+
+  create_table "providers", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "recommendable_dislikes", :force => true do |t|
     t.integer  "user_id"
@@ -60,6 +66,19 @@ ActiveRecord::Schema.define(:version => 20120820074016) do
   add_index "recommendable_stashes", ["stashable_id"], :name => "index_recommendable_stashes_on_stashable_id"
   add_index "recommendable_stashes", ["stashable_type"], :name => "index_recommendable_stashes_on_stashable_type"
   add_index "recommendable_stashes", ["user_id", "stashable_id", "stashable_type"], :name => "user_stashed_constraint", :unique => true
+
+  create_table "services", :force => true do |t|
+    t.integer  "provider_id"
+    t.integer  "user_id"
+    t.string   "uid"
+    t.string   "token"
+    t.string   "secret"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "services", ["provider_id"], :name => "index_services_on_provider_id"
+  add_index "services", ["user_id"], :name => "index_services_on_user_id"
 
   create_table "sites", :force => true do |t|
     t.string   "url"
