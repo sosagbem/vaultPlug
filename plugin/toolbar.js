@@ -3,7 +3,6 @@ $rootUrl = "http://localhost:3000"
 $(document).ready(function(){
   visitCurrentPage();
   $toolbar = $(document.createElement('div')).attr("id","vault");
-
   newCommentForm().appendTo($toolbar);
   submitButton().appendTo($toolbar);
   existingCommentFields().appendTo($toolbar);
@@ -12,6 +11,21 @@ $(document).ready(function(){
 });
 
 // Components
+/*
+function submitButtons() {
+  $submitButtons = $(document.createElement('div')).attr("id","submit-buttons");
+
+  $connectedProvidersUrl = $rootUrl + "/providers/index"
+  $.getJSON($connectedProvidersUrl, function(providers) {
+    $submitButtons = $("#submit-buttons");
+    $.each(providers, function(i, provider) {
+      $(document.createElement('button')).click(submit).text(provider.name).appendTo($submitButtons);
+    });
+  });
+
+  return $submitButtons;
+}*/
+
 function existingCommentFields() {
   $commentsPreview = $(document.createElement('div')).attr("id", "existing-comments");
 
@@ -37,10 +51,25 @@ function newCommentForm() {
     type: "text",
     name: "comment",
     id: "new-comment",
-    placeholder: "Leave your comment"
+    placeholder: "Leave your comment..."
   }).appendTo($form);
 
-   $form.submit(submit);
+  $providersUrl = $rootUrl + "/providers/index";
+  $.getJSON($providersUrl, function(providers) {
+    $form = $("#new-comment-form");
+    $.each(providers, function(i, provider) {
+      $providerId = "providerCheck-" + provider.name;
+      $providerCheck = $(document.createElement("div")).attr("id", $providerId).appendTo($form);
+      $(document.createElement('img')).prop("src", $rootUrl + provider.logo_url).appendTo($providerCheck);
+      $(document.createElement('input')).attr({
+        id: $providerId,
+        name: provider.name,
+        type: 'checkbox'
+      }).appendTo($providerCheck);
+    });
+  });
+
+  $form.submit(submit);
   return $form;
 }
 

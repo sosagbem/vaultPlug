@@ -93,5 +93,6 @@ class ServicesController < ApplicationController
   end
 
   alias_method :facebook, :all_omniauths
+  alias_method :twitter, :all_omniauths
 
 end

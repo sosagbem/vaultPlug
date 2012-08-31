@@ -1,5 +1,7 @@
 Vault::Application.routes.draw do
 
+  get "providers/index"
+
   post "website_comments/new"
   get "website_comments/index"
 

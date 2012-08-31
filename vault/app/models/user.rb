@@ -15,9 +15,10 @@ class User < ActiveRecord::Base
   validates_confirmation_of   :password, :on=>:create
   validates_length_of :password, :within => Devise.password_length, :allow_blank => true
 
-  has_many :services
-  has_many :visits
-  has_many :websites, through: :visits
+  has_many  :services
+  has_many  :providers, :through => :services
+  has_many  :visits
+  has_many  :websites, through: :visits
 
   has_many  :website_comments, as: :ownable
   has_many  :vault_comments, as: :ownable
