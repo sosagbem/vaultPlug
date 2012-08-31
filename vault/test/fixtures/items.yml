@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ownable_type: MyString
+  ownable_id: 1
+  forwarding_url: MyString
+  perview_image_url: MyString
+  preview_text: MyString
+  original_created_at: 2012-08-29 13:59:40
+  website: 
+
+two:
+  ownable_type: MyString
+  ownable_id: 1
+  forwarding_url: MyString
+  perview_image_url: MyString
+  preview_text: MyString
+  original_created_at: 2012-08-29 13:59:40
+  website: 

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Provider:</b>
+  <%= @service.provider %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @service.user %>
+</p>
+
+<p>
+  <b>Uid:</b>
+  <%= @service.uid %>
+</p>
+
+<p>
+  <b>Token:</b>
+  <%= @service.token %>
+</p>
+
+<p>
+  <b>Secret:</b>
+  <%= @service.secret %>
+</p>
+
+
+<%= link_to 'Edit', edit_service_path(@service) %> |
+<%= link_to 'Back', services_path %>
