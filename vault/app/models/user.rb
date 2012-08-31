@@ -19,7 +19,8 @@ class User < ActiveRecord::Base
   has_many :visits
   has_many :websites, through: :visits
 
-  has_many  :website_comments, as: :commentable
+  has_many  :website_comments, as: :ownable
+  has_many  :vault_comments, as: :ownable
 
   recommends :sites
 

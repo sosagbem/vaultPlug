@@ -10,6 +10,6 @@ class CreateItems < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :items, :website_id, [:ownable_id, :ownable_type]
+    add_index :items, [:website_id, :ownable_id, :ownable_type]
   end
 end

@@ -14,8 +14,8 @@
 ActiveRecord::Schema.define(:version => 20120829131859) do
 
   create_table "items", :force => true do |t|
-    t.string   "ownable_type"
     t.integer  "ownable_id"
+    t.string   "ownable_type"
     t.string   "forwarding_url"
     t.string   "perview_image_url"
     t.string   "preview_text"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 20120829131859) do
     t.datetime "updated_at",          :null => false
   end
 
-  add_index "items", ["website_id"], :name => "index_items_on_website_id"
+  add_index "items", ["website_id", "ownable_id", "ownable_type"], :name => "index_items_on_website_id_and_ownable_id_and_ownable_type"
 
   create_table "providers", :force => true do |t|
     t.string   "name"

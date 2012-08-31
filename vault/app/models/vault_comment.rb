@@ -1,0 +1,3 @@
+class VaultComment < WebsiteComment
+
+end

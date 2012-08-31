@@ -6,7 +6,7 @@
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["toolbar.js"],
+      "js": ["http://code.jquery.com/jquery-1.8.1.min.js", "toolbar.js"],
       "css": ["toolbar.css"]
     }
   ], "background": {

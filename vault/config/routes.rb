@@ -1,8 +1,10 @@
 Vault::Application.routes.draw do
 
-  get "website_comments/new"
+  post "website_comments/new"
+  get "website_comments/index"
 
   post "websites/visit"
+
 
   resources :services do
     collection do

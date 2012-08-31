@@ -1,87 +1,84 @@
-var rootUrl = "http://localhost:3000";
+$rootUrl = "http://localhost:3000"
 
-onload = function(){
-
+$(document).ready(function(){
   visitCurrentPage();
+  $toolbar = $(document.createElement('div')).attr("id","vault");
 
-  var toolbar = document.createElement("div");
-  toolbar.setAttribute('id', 'vault');
+  newCommentForm().appendTo($toolbar);
+  submitButton().appendTo($toolbar);
+  existingCommentFields().appendTo($toolbar);
 
-  add_new_comment_form(toolbar);
-  //add_existing_comments(toolbar);
-/*
-  var divm = document.createElement("span");
-  divm.setAttribute('id', 'vaultmessage');
-  divm.innerText = "Loading";
+  $(document.body).append($toolbar);
+});
 
+// Components
+function existingCommentFields() {
+  $commentsPreview = $(document.createElement('div')).attr("id", "existing-comments");
 
-  var warmButton = document.createElement("button");
-  warmButton.setAttribute('id', 'vaultbutton');
-  warmButton.innerHTML = "Warmer";
-  warmButton.onclick = likeCurrentPage;
+  getExistingComments();
 
-  var coldButton = document.createElement("button");
-  coldButton.setAttribute('id', 'vaultbutton');
-  coldButton.innerHTML = "Colder";
-  coldButton.onclick = dislikeCurrentPage;
-
-  divg.appendChild(warmButton);
-  divg.appendChild(coldButton);
-  divg.appendChild(divm);
-
-    var recommendationPath = rootUrl + "/sites/get_recommendation.json";
-  simpleGet(recommendationPath);
-*/
-  document.body.appendChild(toolbar);
-};
-
-function add_new_comment_form(component) {
-  var form = document.createElement("form");
-  var formUrl = rootUrl + "/website_comments/new"
-  form.setAttribute("action", formUrl);
-  form.setAttribute("method", "POST");
-
-  var commentBox = document.createElement("input");
-  commentBox.setAttribute("type", "text");
-  commentBox.setAttribute("id", "comment");
-  commentBox.setAttribute("placeholder", "Leave your comment...");
-  form.appendChild(commentBox);
-
-  var submitButton = document.createElement("button");
-  submitButton.innerText = "Post";
-  submitButton.onclick = submitForm;
-  form.appendChild(submitButton);
-
-  component.appendChild(form);
-
+  return $commentsPreview;
 }
 
-function submitForm() {
-  document.form.submit();
+function newCommentForm() {
+  $formUrl = $rootUrl + "/website_comments/new";
+  $form = $(document.createElement('form')).attr({
+    action: $formUrl,
+    id: "new-comment-form"
+  });
 
+  $hiddenUrl = $(document.createElement("input")).attr({
+    type: "hidden",
+    name: "url",
+    value: currentUrl()
+  }).appendTo($form);
+
+  $commentBox = $(document.createElement("input")).attr({
+    type: "text",
+    name: "comment",
+    id: "new-comment",
+    placeholder: "Leave your comment"
+  }).appendTo($form);
+
+   $form.submit(submit);
+  return $form;
 }
 
+function submitButton() {
+  $submitButton = $(document.createElement('button')).click(submit).text("Post");
+  return $submitButton;
+}
+
+function submit() {
+  $form = $("#new-comment-form");
+  $.post($form.attr('action'), $form.serialize(), function(response){
+    $("#new-comment").val('');
+    getExistingComments();
+  },'json');
+  return false;
+}
+
+function populateComments(comments) {
+  $commentsPreview = $("#existing-comments");
+  $commentsPreview.empty();
+  $.each(comments, function(i, comment) {
+    $commentText = "@" + comment.created_at + " " + comment.preview_text;
+    $(document.createElement('div')).attr("id", "comment").text($commentText).appendTo($commentsPreview);
+  });
+}
+
+//API calls
 function visitCurrentPage() {
-  var visitPath = rootUrl + "/websites/visit";
-  var params =  "url=" + document.URL;
-  simplePost(visitPath, params);
+  $visitPath = $rootUrl + "/websites/visit";
+  $.post($visitPath, { url: currentUrl() });
 }
 
-function simplePost(apiUrl, params) {
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", apiUrl, true);
-  xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-  xhr.send(params);
+function getExistingComments() {
+  $commentsUrl = $rootUrl + "/website_comments/index";
+  $.getJSON($commentsUrl, { url: currentUrl() }, populateComments);
 }
-/*
-function simpleGet(apiUrl) {
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", apiUrl, true);
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4) {
-      // JSON.parse does not evaluate the attacker's scripts.
-      document.getElementById('vaultmessage').innerText = xhr.responseText;
-    }
-  }
-  xhr.send();
-}*/
+
+//Helper methods
+function currentUrl() {
+  return $(location).attr('href');
+}
