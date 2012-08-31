@@ -1,12 +1,19 @@
 var rootUrl = "http://localhost:3000";
 
 onload = function(){
-  var divg = document.createElement("div");
-  divg.setAttribute('id', 'vault');
 
+  visitCurrentPage();
+
+  var toolbar = document.createElement("div");
+  toolbar.setAttribute('id', 'vault');
+
+  add_new_comment_form(toolbar);
+  //add_existing_comments(toolbar);
+/*
   var divm = document.createElement("span");
   divm.setAttribute('id', 'vaultmessage');
   divm.innerText = "Loading";
+
 
   var warmButton = document.createElement("button");
   warmButton.setAttribute('id', 'vaultbutton');
@@ -21,28 +28,52 @@ onload = function(){
   divg.appendChild(warmButton);
   divg.appendChild(coldButton);
   divg.appendChild(divm);
-  document.body.appendChild(divg);
 
-  var recommendationPath = rootUrl + "/sites/get_recommendation.json";
+    var recommendationPath = rootUrl + "/sites/get_recommendation.json";
   simpleGet(recommendationPath);
+*/
+  document.body.appendChild(toolbar);
 };
 
-function likeCurrentPage() {
-  var likePath = rootUrl + "/sites/like.json?url=" + document.URL;
-  simplePost(likePath);
+function add_new_comment_form(component) {
+  var form = document.createElement("form");
+  var formUrl = rootUrl + "/website_comments/new"
+  form.setAttribute("action", formUrl);
+  form.setAttribute("method", "POST");
+
+  var commentBox = document.createElement("input");
+  commentBox.setAttribute("type", "text");
+  commentBox.setAttribute("id", "comment");
+  commentBox.setAttribute("placeholder", "Leave your comment...");
+  form.appendChild(commentBox);
+
+  var submitButton = document.createElement("button");
+  submitButton.innerText = "Post";
+  submitButton.onclick = submitForm;
+  form.appendChild(submitButton);
+
+  component.appendChild(form);
+
 }
 
-function dislikeCurrentPage() {
-  var dislikePath = rootUrl + "/sites/dislike.json?url=" + document.URL;
-  simplePost(dislikePath);
+function submitForm() {
+  document.form.submit();
+
 }
 
-function simplePost(apiUrl) {
+function visitCurrentPage() {
+  var visitPath = rootUrl + "/websites/visit";
+  var params =  "url=" + document.URL;
+  simplePost(visitPath, params);
+}
+
+function simplePost(apiUrl, params) {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", apiUrl, true);
-  xhr.send();
+  xhr.open("POST", apiUrl, true);
+  xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  xhr.send(params);
 }
-
+/*
 function simpleGet(apiUrl) {
   var xhr = new XMLHttpRequest();
   xhr.open("GET", apiUrl, true);
@@ -53,4 +84,4 @@ function simpleGet(apiUrl) {
     }
   }
   xhr.send();
-}
+}*/
