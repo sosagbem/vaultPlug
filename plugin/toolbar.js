@@ -3,6 +3,7 @@ $rootUrl = "http://localhost:3000"
 $(document).ready(function(){
   visitCurrentPage();
   $toolbar = $(document.createElement('div')).attr("id","vault");
+  ratings().appendTo($toolbar);
   newCommentForm().appendTo($toolbar);
   submitButton().appendTo($toolbar);
   existingCommentFields().appendTo($toolbar);
@@ -11,20 +12,36 @@ $(document).ready(function(){
 });
 
 // Components
-/*
-function submitButtons() {
-  $submitButtons = $(document.createElement('div')).attr("id","submit-buttons");
-
-  $connectedProvidersUrl = $rootUrl + "/providers/index"
-  $.getJSON($connectedProvidersUrl, function(providers) {
-    $submitButtons = $("#submit-buttons");
-    $.each(providers, function(i, provider) {
-      $(document.createElement('button')).click(submit).text(provider.name).appendTo($submitButtons);
-    });
+function ratings() {
+  $ratingsUrl = $rootUrl + "/websites/ratings";
+  $ratings = $(document.createElement('div')).attr("id", "ratings");
+  $.getJSON($ratingsUrl, function(ratingsDetails) {
+    $ratings = $("#ratings");
+    for(var i = 1; i <= parseInt(ratingsDetails.number_of_ratings); i++) {
+        addImage($ratings, $rootUrl + ratingsDetails.rating_image_unselected_url, $rootUrl + ratingsDetails.rating_image_selected_url, i);
+    }
   });
+  return $ratings;
+}
 
-  return $submitButtons;
-}*/
+//would ideally do this inline above, but need to force create a new scope for the loop
+function addImage(element, imagePath, switchPath, i) {
+  $(document.createElement('img')).attr("id", "rating-" + i).prop("src", imagePath).mouseover(function() {
+    for(var i = 1; i <= ratingNumber($(this).attr("id")); i++) {
+      $("#rating-" + i).attr("src", switchPath);
+    }
+  }).mouseout(function() {
+    for(var i = 1; i <= ratingNumber($(this).attr("id")); i++) {
+      $("#rating-" + i).attr("src", imagePath);
+    }
+  }).click(function() {
+    visitCurrentPage(ratingNumber($(this).attr("id")));
+  }).appendTo(element);
+}
+
+function ratingNumber(ratingId) {
+  return ratingId.match(/\d+/)[0];
+}
 
 function existingCommentFields() {
   $commentsPreview = $(document.createElement('div')).attr("id", "existing-comments");
@@ -97,9 +114,10 @@ function populateComments(comments) {
 }
 
 //API calls
-function visitCurrentPage() {
+function visitCurrentPage(rating) {
+  rating = rating || -1;
   $visitPath = $rootUrl + "/websites/visit";
-  $.post($visitPath, { url: currentUrl() });
+  $.post($visitPath, { url: currentUrl(), rating: rating });
 }
 
 function getExistingComments() {

@@ -27,8 +27,6 @@ end
 
 gem 'jquery-rails'
 gem 'devise'
-gem 'recommendable'
-gem 'sidekiq'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem "simple_form"

@@ -1,6 +1,7 @@
 Vault::Application.routes.draw do
 
   get "providers/index"
+  get "websites/ratings"
 
   post "website_comments/new"
   get "website_comments/index"

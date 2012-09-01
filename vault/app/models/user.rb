@@ -23,11 +23,13 @@ class User < ActiveRecord::Base
   has_many  :website_comments, as: :ownable
   has_many  :vault_comments, as: :ownable
 
-  recommends :sites
-
-  def visit(url)
+  def visit(url, visited_rating = nil)
     visited_website = Website.find_or_create_by_url(url)
     visits.find_or_create_by_website_id(visited_website.id)
+    visits.where(website_id: visited_website.id).first_or_create do |website|
+      website.website_id = visited_website.id
+      website.rating = visited_rating
+    end
   end
 
 private
