@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vault</title>
+  <link rel="stylesheet" type="text/css" href="test.css" />
+</head>
+<body>
+  <div id="vault">
+    <form id="new-comment-form">
+      <input type="text" placeholder="What do you think about this?" id="new-comment"></input>
+      <button class="post-alternative-button" id="fb-button">FB</button>
+      <button class="post-alternative-button" id="twitter-button">TW</button>
+      <button id="post-button">Post</button>
+    </form>
+
+    <div id="ratings">
+      <img src="http://localhost:3000/star_empty_64.png" class="rating">
+      <img src="http://localhost:3000/star_empty_64.png" class="rating">
+      <img src="http://localhost:3000/star_empty_64.png" class="rating">
+      <img src="http://localhost:3000/star_empty_64.png" class="rating">
+      <img src="http://localhost:3000/star_empty_64.png" class="rating">
+    </div>
+
+    <div id="existing-comment">
+      <a href="http://www.twitter/mamemia" id="comment-poster">@mamemia</a>
+      <p id="comment-text"> - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec eros ipsum, id mollis eros. Vestibulum ullamcorper mauris a ligula rhoncus vitae hendrerit turpis ultricies. In rutrum accumsan mattis. Sed ...</p>
+    </div>
+    <div id="comment-votes">
+      <img src="http://localhost:3000/vote_up.gif" class="comment-vote" id="comment-vote-top">
+      <img src="http://localhost:3000/vote_down.gif" class="comment-vote" id="comment-vote-bottom">
+    </div>
+
+  </div>
+</body>
+</html>

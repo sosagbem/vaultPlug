@@ -3,9 +3,8 @@ $rootUrl = "http://localhost:3000"
 $(document).ready(function(){
   visitCurrentPage();
   $toolbar = $(document.createElement('div')).attr("id","vault");
+  $commentForm = newCommentForm().appendTo($toolbar);
   ratings().appendTo($toolbar);
-  newCommentForm().appendTo($toolbar);
-  submitButton().appendTo($toolbar);
   existingCommentFields().appendTo($toolbar);
 
   $(document.body).append($toolbar);
@@ -26,7 +25,10 @@ function ratings() {
 
 //would ideally do this inline above, but need to force create a new scope for the loop
 function addImage(element, imagePath, switchPath, i) {
-  $(document.createElement('img')).attr("id", "rating-" + i).prop("src", imagePath).mouseover(function() {
+  $(document.createElement('img')).attr({
+    id: "rating-" + i,
+    class: "rating"
+  }).prop("src", imagePath).mouseover(function() {
     for(var i = 1; i <= ratingNumber($(this).attr("id")); i++) {
       $("#rating-" + i).attr("src", switchPath);
     }
@@ -56,7 +58,7 @@ function newCommentForm() {
   $form = $(document.createElement('form')).attr({
     action: $formUrl,
     id: "new-comment-form"
-  });
+  }).submit(submit);;
 
   $hiddenUrl = $(document.createElement("input")).attr({
     type: "hidden",
@@ -77,22 +79,20 @@ function newCommentForm() {
     $.each(providers, function(i, provider) {
       $providerId = "providerCheck-" + provider.name;
       $providerCheck = $(document.createElement("div")).attr("id", $providerId).appendTo($form);
-      $(document.createElement('img')).prop("src", $rootUrl + provider.logo_url).appendTo($providerCheck);
+      $(document.createElement('img')).attr({
+        class: "provider-thing"
+      }).prop("src", $rootUrl + provider.logo_url).appendTo($providerCheck);
       $(document.createElement('input')).attr({
         id: $providerId,
         name: provider.name,
-        type: 'checkbox'
+        type: 'checkbox',
+        class: "provider-thing"
       }).appendTo($providerCheck);
     });
+    $submitButton = $(document.createElement('button')).attr("id","post-button").click(submit).text("Post").appendTo($form);
   });
 
-  $form.submit(submit);
   return $form;
-}
-
-function submitButton() {
-  $submitButton = $(document.createElement('button')).click(submit).text("Post");
-  return $submitButton;
 }
 
 function submit() {
@@ -109,7 +109,7 @@ function populateComments(comments) {
   $commentsPreview.empty();
   $.each(comments, function(i, comment) {
     $commentText = "@" + comment.created_at + " " + comment.preview_text;
-    $(document.createElement('div')).attr("id", "comment").text($commentText).appendTo($commentsPreview);
+    $(document.createElement('div')).attr("class", "comment").text($commentText).appendTo($commentsPreview);
   });
 }
 

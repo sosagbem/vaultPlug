@@ -17,15 +17,16 @@
 
 }
 
+#vaultbutton {
+  width: 200px;
+
+}
+
 #new-comment-form {
   left: 0;
   float: left;
   padding: 0 10px 0 10px;
   width: 40%;
-}
-
-.provider-thing {
-  float: left;
 }
 
 #new-comment {
@@ -38,13 +39,17 @@
 }
 
 #ratings {
-  width: 20%;
-  float: left;
+  widthe: 20%;
 }
 
 .rating {
   height: 30px;
   width: 30px;
+  float: left;
+}
+
+#post-alternatives {
+  float: left;
 }
 
 #existing-comment {
@@ -67,6 +72,7 @@
 .comment-vote {
   height: 15px;
   width: 15px;
+
 }
 
 #comment-vote-top {
